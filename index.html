@@ -3,97 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Legend Sara</title>
+    <title>Your Legend sara - Obfuscated Secure Page</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Courier New', Courier, monospace;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0d0f12;
-            color: #e1e6ed;
+            background-color: #050505;
+            color: #00ff66;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             padding: 20px;
+            text-shadow: 0 0 5px #00ff66;
         }
+
         .container {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-            padding: 30px;
             width: 100%;
-            max-width: 600px;
-            text-align: center;
+            max-width: 800px;
+            background: #0a0a0a;
+            border: 1px solid #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+            padding: 25px;
+            border-radius: 8px;
         }
+
         h1 {
-            color: #58a6ff;
-            margin-bottom: 10px;
+            text-align: center;
+            margin-bottom: 20px;
             font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #00ff66;
+            padding-bottom: 10px;
         }
-        p {
-            color: #8b949e;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
+
         label {
             display: block;
             margin-bottom: 8px;
-            color: #c9d1d9;
-            font-weight: 600;
+            font-weight: bold;
         }
-        input[type="text"], select {
+
+        textarea {
             width: 100%;
-            padding: 12px;
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            color: #c9d1d9;
+            height: 150px;
+            background-color: #000000;
+            color: #00ff66;
+            border: 1px solid #00ff66;
+            border-radius: 4px;
+            padding: 10px;
             font-size: 14px;
+            resize: vertical;
             outline: none;
-            transition: border-color 0.2s;
+            box-shadow: inset 0 0 5px rgba(0, 255, 102, 0.2);
         }
-        input[type="text"]:focus, select:focus {
-            border-color: #58a6ff;
+
+        textarea:focus {
+            box-shadow: 0 0 8px #00ff66;
         }
+
         button {
             width: 100%;
+            margin-top: 15px;
             padding: 12px;
-            background-color: #238636;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            background-color: #00ff66;
+            color: #000000;
             font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #2ea043;
-        }
-        .footer {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #6e7681;
-        }
-        .status-box {
-            margin-top: 20px;
-            padding: 12px;
-            background-color: #0d1117;
-            border-left: 4px solid #58a6ff;
+            font-size: 16px;
+            border: none;
             border-radius: 4px;
-            text-align: left;
-            font-size: 13px;
-            word-break: break-all;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #00cc52;
+            box-shadow: 0 0 15px #00ff66;
+        }
+
+        .output-group {
+            margin-top: 25px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -101,53 +105,49 @@
 
     <div class="container">
         <h1>Your Legend Sara</h1>
-        <p>Bypass & Security Operations Panel</p>
 
-        <form id="bypassForm" onsubmit="return false;">
-            <div class="input-group">
-                <label for="targetUrl">Target URL / Host:</label>
-                <input type="text" id="targetUrl" placeholder="Enter target URL..." required>
-            </div>
+        <div class="input-group">
+            <label for="inputCode">Enter Code To Secure:</label>
+            <textarea id="inputCode" placeholder="Paste your HTML/JS code here..."></textarea>
+        </div>
 
-            <div class="input-group">
-                <label for="modeSelect">Select Method:</label>
-                <select id="modeSelect">
-                    <option value="bypass_v1">Bypass Method 1 (Fast)</option>
-                    <option value="bypass_v2">Bypass Method 2 (Secure)</option>
-                    <option value="direct">Direct Tunnel</option>
-                </select>
-            </div>
+        <button onclick="encryptCode()">Obfuscate & Secure</button>
 
-            <button type="button" onclick="executeProcess()">Execute Action</button>
-        </form>
-
-        <div id="statusResult" class="status-box" style="display: none;">
-            <strong>Status:</strong> <span id="statusText">Ready</span>
+        <div class="output-group">
+            <label for="outputCode">Encrypted Secure Code Output:</label>
+            <textarea id="outputCode" readonly placeholder="Secured code will appear here..."></textarea>
         </div>
 
         <div class="footer">
-            Powered by Your Legend Sara &copy; 2026. All Rights Reserved.
+            Powered by Your Legend
         </div>
     </div>
 
     <script>
-        function executeProcess() {
-            var url = document.getElementById('targetUrl').value;
-            var mode = document.getElementById('modeSelect').value;
-            var statusBox = document.getElementById('statusResult');
-            var statusText = document.getElementById('statusText');
-
-            if (!url) {
-                alert('Please enter a valid target URL.');
+        function encryptCode() {
+            var input = document.getElementById('inputCode').value;
+            if (!input) {
+                alert('Please enter some code to obfuscate!');
                 return;
             }
 
-            statusBox.style.display = 'block';
-            statusText.innerHTML = 'Processing request for <strong>' + url + '</strong> using <em>' + mode + '</em>...';
+            var charCodes = [];
+            for (var i = 0; i < input.length; i++) {
+                charCodes.push(input.charCodeAt(i) + 13); 
+            }
 
-            setTimeout(function() {
-                statusText.innerHTML = '<span style="color: #3fb950;">[SUCCESS]</span> Request processed by Your Legend Sara engine.';
-            }, 1500);
+            var result = "<script>\n" +
+                "(function(){\n" +
+                "   var _q = [" + charCodes.join(",") + "];\n" +
+                "   var _s = '';\n" +
+                "   for(var i=0; i<_q.length; i++) {\n" +
+                "       _s += String.fromCharCode(_q[i] - 13);\n" +
+                "   }\n" +
+                "   document.write(_s);\n" +
+                "})();\n" +
+                "<\/script>";
+
+            document.getElementById('outputCode').value = result;
         }
     </script>
 </body>
